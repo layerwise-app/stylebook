@@ -733,6 +733,11 @@ dialog.sb-search[open] {
   gap: var(--sb-space-6);
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
 }
+@container (min-width: 60rem) {
+  .sb-diagrams:has(> :nth-child(3):last-child) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
 .sb-diagram {
   margin: 0;
   min-width: 0;
@@ -828,6 +833,12 @@ dialog.sb-search[open] {
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
   border-top: 1px solid var(--sb-rule);
 }
+/* Four colors make a square rather than three and one left over. */
+@container (min-width: 44rem) {
+  .sb-swatches:has(> :nth-child(4):last-child) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
 .sb-swatch {
   display: flex;
   flex-direction: column;
@@ -844,7 +855,12 @@ dialog.sb-search[open] {
 }
 .sb-swatch__values {
   display: grid;
-  gap: 0;
+  grid-template-columns: max-content minmax(0, 1fr) auto;
+  column-gap: var(--sb-space-2);
+}
+.sb-swatch__values > .sb-copy-row {
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
 }
 .sb-copy-row {
   appearance: none;
@@ -1139,7 +1155,9 @@ dialog.sb-search[open] {
   .sb-gallery {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .sb-gallery .sb-figure:first-child {
+  /* The first runs wide; so does the last when it would otherwise sit alone. */
+  .sb-gallery .sb-figure:first-child,
+  .sb-gallery .sb-figure:last-child:nth-child(even) {
     grid-column: 1 / -1;
   }
 }

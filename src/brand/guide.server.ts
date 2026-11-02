@@ -155,6 +155,9 @@ function buildSearch(): SearchItem[] {
 }
 
 function buildGuide(): Omit<GuideView, 'protected' | 'syncErrors'> {
+  if (config.logos.variants.some((variant) => !manifest.logos[variant.id])) {
+    throw new Error('brand-files/generated/ does not match the brand config. Run `pnpm build-brand`.');
+  }
   const theme = resolveTheme(config.colors);
   const ink = theme.ink.background;
   const paper = theme.paper.background;

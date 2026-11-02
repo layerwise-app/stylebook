@@ -20,7 +20,7 @@ import {
 describe('hex parsing', () => {
   it('normalizes short and lowercase forms', () => {
     expect(normalizeHex('#abc')).toBe('#AABBCC');
-    expect(normalizeHex('ff5c35')).toBe('#FF5C35');
+    expect(normalizeHex('d94f2b')).toBe('#D94F2B');
   });
   it('rejects anything that is not a hex color', () => {
     expect(() => normalizeHex('#12345')).toThrow();
@@ -28,7 +28,7 @@ describe('hex parsing', () => {
     expect(() => normalizeHex('#GGGGGG')).toThrow();
   });
   it('round-trips through rgb', () => {
-    for (const hex of ['#000000', '#FFFFFF', '#123456', '#FF5C35']) {
+    for (const hex of ['#000000', '#FFFFFF', '#123456', '#D94F2B']) {
       expect(rgbToHex(hexToRgb(hex))).toBe(hex);
     }
   });
@@ -71,7 +71,7 @@ describe('format conversion against reference values', () => {
     expect(rgbToOklch(hexToRgb('#FF0080')).h).toBeGreaterThan(0);
   });
   it('round-trips through OKLab', () => {
-    for (const hex of ['#FF5C35', '#0A4A48', '#E8F27A', '#123456']) {
+    for (const hex of ['#D94F2B', '#14505C', '#DDE36B', '#123456']) {
       expect(rgbToHex(oklabToRgb(rgbToOklab(hexToRgb(hex))))).toBe(hex);
     }
   });
@@ -131,7 +131,7 @@ describe('readableOn', () => {
       for (let g = 0; g <= 255; g += 51) {
         for (let b = 0; b <= 255; b += 51) {
           const bg = rgbToHex({ r, g, b });
-          const text = readableOn(bg, '#FF5C35', '#7A7A7A', '#8A8A8A');
+          const text = readableOn(bg, '#D94F2B', '#7A7A7A', '#8A8A8A');
           expect(contrastRatio(text, bg)).toBeGreaterThanOrEqual(4.5);
         }
       }
@@ -145,7 +145,7 @@ describe('mixing helpers', () => {
     expect(mixColors('#102030', '#F0E0D0', 1)).toBe('#F0E0D0');
   });
   it('measures distance as zero for identical colors', () => {
-    expect(colorDistance('#FF5C35', '#ff5c35')).toBe(0);
+    expect(colorDistance('#D94F2B', '#d94f2b')).toBe(0);
   });
   it('softens toward the background without breaking the ratio', () => {
     const soft = softestReadable('#000000', '#FFFFFF');

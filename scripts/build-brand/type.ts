@@ -13,14 +13,18 @@ type Role = 'display' | 'text' | 'mono';
 type Loaded = { weight: number; font: Font };
 
 async function parseFont(path: string) {
-  const bytes = readFileSync(path);
-  const sfnt = path.endsWith('.woff2')
-    ? new Uint8Array(await wawoff2.decompress(bytes))
-    : new Uint8Array(bytes);
-  // oxlint-disable-next-line import/no-named-as-default-member
-  return opentype.parse(
-    sfnt.buffer.slice(sfnt.byteOffset, sfnt.byteOffset + sfnt.byteLength)
-  );
+  try {
+    const bytes = readFileSync(path);
+    const sfnt = path.endsWith('.woff2')
+      ? new Uint8Array(await wawoff2.decompress(bytes))
+      : new Uint8Array(bytes);
+    // oxlint-disable-next-line import/no-named-as-default-member
+    return opentype.parse(
+      sfnt.buffer.slice(sfnt.byteOffset, sfnt.byteOffset + sfnt.byteLength)
+    );
+  } catch (error) {
+    throw new Error(`${path} can't be read as a font: ${(error as Error).message}`);
+  }
 }
 
 const number = (n: number) => +n.toFixed(2);

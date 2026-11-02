@@ -74,7 +74,11 @@ function businessCard(kit: Kit): Art {
   const brandText = kit.theme.brand.text;
   const primary = kit.config.logos.variants[0]!.id;
   const logoWidth = Math.min(560, 200 * kit.logoAspect(primary));
-  const name = kit.type.fit(copy.name, { role: 'display', maxWidth: cw - 120, maxHeight: 120, maxSize: 74, minSize: 36, leading: 1 });
+  // Name and title stay clear of the mark in the corner, however long they are.
+  const markSize = 110;
+  const headWidth = cw - 120 - markSize - 40;
+  const name = kit.type.fit(copy.name, { role: 'display', maxWidth: headWidth, maxHeight: 150, maxSize: 74, minSize: 36, leading: 1 });
+  const title = kit.type.fit(copy.title, { role: 'text', weight: 500, maxWidth: headWidth, maxHeight: 40, maxSize: 30, minSize: 18, leading: 1 });
   const details = [copy.phone, kit.config.contactEmail, copy.address];
   const body =
     kit.type.line('Front', { role: 'mono', size: 22, x: x0, y: 90, fill: boardText, tracking: 0.04, uppercase: true, weight: 500 }) +
@@ -87,13 +91,13 @@ function businessCard(kit: Kit): Art {
     }) +
     `<rect x="${backX}" y="${y0}" width="${cw}" height="${ch}" fill="${kit.brand}"/>` +
     kit.type.block(name.lines, { role: 'display', size: name.size, leading: 1, x: backX + 60, y: y0 + 60 + name.size * 0.85, fill: brandText }).markup +
-    kit.type.line(copy.title, { role: 'text', weight: 500, size: 30, x: backX + 60, y: y0 + 60 + name.size * name.lines.length + 34, fill: brandText }) +
+    kit.type.line(title.lines.join(' '), { role: 'text', weight: 500, size: title.size, x: backX + 60, y: y0 + 60 + name.size * name.lines.length + 34, fill: brandText }) +
     details
       .map((line, i) =>
         kit.type.line(line, { role: 'mono', size: 25, x: backX + 60, y: y0 + ch - 60 - (details.length - 1 - i) * 38, fill: brandText })
       )
       .join('') +
-    kit.logo(kit.markVariant, 'brand', { x: backX + cw - 60 - 110, y: y0 + 60, width: 110, height: 110 }) +
+    kit.logo(kit.markVariant, 'brand', { x: backX + cw - 60 - markSize, y: y0 + 60, width: markSize, height: markSize }) +
     marks(x0, y0) +
     marks(backX, y0) +
     kit.type.line(copy.spec, { role: 'mono', size: 22, x: W / 2, y: H - 110, fill: boardText, tracking: 0.04, anchor: 'middle' });

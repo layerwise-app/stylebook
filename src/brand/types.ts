@@ -4,7 +4,7 @@
 export type ColorRole = 'ink' | 'paper' | 'brand' | 'accent' | 'support';
 
 export type BrandColor = {
-  /** Stable id used in token names, like `peel`. Lowercase letters and dashes. */
+  /** Stable id used in token names, like `harbor-blue`. Lowercase letters and dashes. */
   id: string;
   name: string;
   hex: string;

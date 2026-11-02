@@ -54,11 +54,14 @@ export function brandSync(): Plugin {
 
       server.httpServer?.once('listening', () => void run());
       server.watcher.add(manifestPath);
-      server.watcher.on('change', (path) => {
+      // `add` covers the first build in a project that has no manifest yet.
+      const onManifest = (path: string) => {
         if (path !== manifestPath) return;
         clearTimeout(timer);
         timer = setTimeout(() => void run(), 400);
-      });
+      };
+      server.watcher.on('change', onManifest);
+      server.watcher.on('add', onManifest);
 
       // The Cloudflare plugin restarts when .dev.vars changes, but not when it's
       // created or deleted, which is how the README turns the password on and off.

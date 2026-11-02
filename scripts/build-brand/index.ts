@@ -5,7 +5,7 @@
 // byte-identical files and the sync has nothing to do.
 
 import { createHash } from 'node:crypto';
-import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { basename, dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Resvg } from '@resvg/resvg-js';
@@ -41,6 +41,10 @@ import { Typesetter } from './type';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const filesRoot = join(root, 'brand-files');
 const generatedRoot = join(filesRoot, 'generated');
+// Everything is built here and copied into place at the end, so a failed build
+// leaves the last good files, and the running preview, untouched.
+const buildRoot = join(root, 'node_modules/.cache/stylebook-brand-build');
+const outputPath = (key: string) => join(key.startsWith('generated/') ? buildRoot : filesRoot, key);
 const sha256 = (data: Uint8Array | string) => createHash('sha256').update(data).digest('hex');
 
 function validate(brand: BrandConfig) {
@@ -65,6 +69,18 @@ function validate(brand: BrandConfig) {
   for (const file of required) {
     if (!existsSync(join(filesRoot, file))) problems.push(`brand-files/${file} is in the config but missing.`);
   }
+  for (const variant of brand.logos.variants) {
+    const path = join(filesRoot, variant.file);
+    if (!existsSync(path)) continue;
+    try {
+      const svg = readFileSync(path, 'utf8');
+      svgSize(svg);
+      if (/<text[\s>]/.test(svg)) throw new Error('its text must be converted to outlines');
+      renderPng(svg, 16);
+    } catch (error) {
+      problems.push(`brand-files/${variant.file} can't be used: ${(error as Error).message}`);
+    }
+  }
   if (!brand.logos.variants.some((v) => v.id === brand.logos.faviconVariant)) {
     problems.push(`logos.faviconVariant "${brand.logos.faviconVariant}" is not one of the logo variants.`);
   }
@@ -75,7 +91,7 @@ function validate(brand: BrandConfig) {
 }
 
 function writeGenerated(key: string, data: Uint8Array | string) {
-  const path = join(filesRoot, key);
+  const path = outputPath(key);
   mkdirSync(dirname(path), { recursive: true });
   writeFileSync(path, data);
 }
@@ -93,8 +109,7 @@ function renderPng(svg: string, width: number) {
 
 async function main() {
   validate(config);
-  rmSync(generatedRoot, { recursive: true, force: true });
-  mkdirSync(generatedRoot, { recursive: true });
+  rmSync(buildRoot, { recursive: true, force: true });
 
   const sources = Object.fromEntries(
     config.logos.variants.map((v) => [v.id, readFileSync(join(filesRoot, v.file), 'utf8')])
@@ -211,13 +226,13 @@ async function main() {
       ...m
     };
   };
-  const files = [...meta.keys()].sort().map((key) => describe(key, readFileSync(join(filesRoot, key))));
+  const files = [...meta.keys()].sort().map((key) => describe(key, readFileSync(outputPath(key))));
   const zipEntries: Zippable = {};
   for (const file of files) {
     if (!file.zipPath) continue;
     const compressed = !['PNG', 'WOFF2', 'WOFF'].includes(file.format);
     zipEntries[file.zipPath] = [
-      new Uint8Array(readFileSync(join(filesRoot, file.key))),
+      new Uint8Array(readFileSync(outputPath(file.key))),
       // A fixed date keeps the zip byte-identical between builds.
       { level: compressed ? 6 : 0, mtime: new Date('2000-01-01T00:00:00Z') }
     ];
@@ -242,7 +257,22 @@ async function main() {
     files: [...files, describe(ZIP_KEY, zip)],
     logos: logoInfo
   };
-  writeFileSync(join(filesRoot, MANIFEST_FILE), `${JSON.stringify(manifest, null, 2)}\n`);
+  writeGenerated(MANIFEST_FILE, `${JSON.stringify(manifest, null, 2)}\n`);
+
+  // Everything worked, so copy it over. The manifest goes last: the preview's sync
+  // watches it, and swapping the whole folder would hide the change from the watcher.
+  const builtRoot = join(buildRoot, 'generated');
+  const built = new Set(walkFiles(builtRoot).map((path) => relative(builtRoot, path)));
+  for (const path of walkFiles(generatedRoot)) {
+    if (!built.has(relative(generatedRoot, path))) rmSync(path);
+  }
+  const manifestName = relative('generated', MANIFEST_FILE);
+  for (const name of [...[...built].filter((n) => n !== manifestName), manifestName]) {
+    const target = join(generatedRoot, name);
+    mkdirSync(dirname(target), { recursive: true });
+    copyFileSync(join(builtRoot, name), target);
+  }
+  rmSync(buildRoot, { recursive: true, force: true });
 
   const total = manifest.files.reduce((sum, f) => sum + f.size, 0);
   console.log(

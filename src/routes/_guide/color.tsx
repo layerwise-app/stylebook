@@ -85,9 +85,6 @@ function ColorPage() {
           aria-label='Contrast grid, scrolls sideways'
         >
           <table className='sb-contrast t-small'>
-            <caption className='t-small t-muted' style={{ captionSide: 'bottom', textAlign: 'left', paddingTop: 'var(--sb-space-2)' }}>
-              Ratios are computed from the palette and rounded down.
-            </caption>
             <thead>
               <tr>
                 <th scope='col'>
@@ -145,6 +142,9 @@ function ColorPage() {
             </tbody>
           </table>
         </div>
+        <p className='t-small t-muted' style={{ marginTop: 'var(--sb-space-2)' }}>
+          Ratios are computed from the palette and rounded down.
+        </p>
       </Section>
     </>
   );
