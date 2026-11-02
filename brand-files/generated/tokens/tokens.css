@@ -1,0 +1,60 @@
+/* Tidewell design tokens. Generated from the brand config. */
+:root {
+  --color-fathom: #08262A;
+  --color-salt: #F7F3E8;
+  --color-peel: #FF5C35;
+  --color-tidewater: #0A4A48;
+  --color-seaglass: #B4DCCB;
+  --color-quinine: #E8F27A;
+
+  --font-display: "Young Serif", Georgia, "Times New Roman", serif;
+  --font-text: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "DM Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --type-display-font: var(--font-display);
+  --type-display-weight: 400;
+  --type-display-size: 8rem;
+  --type-display-line-height: 0.98;
+  --type-display-tracking: -0.02em;
+  --type-h1-font: var(--font-display);
+  --type-h1-weight: 400;
+  --type-h1-size: 4.5rem;
+  --type-h1-line-height: 1.04;
+  --type-h1-tracking: -0.015em;
+  --type-h2-font: var(--font-display);
+  --type-h2-weight: 400;
+  --type-h2-size: 2.375rem;
+  --type-h2-line-height: 1.14;
+  --type-h2-tracking: -0.01em;
+  --type-h3-font: var(--font-text);
+  --type-h3-weight: 600;
+  --type-h3-size: 1.3125rem;
+  --type-h3-line-height: 1.32;
+  --type-h3-tracking: -0.005em;
+  --type-body-font: var(--font-text);
+  --type-body-weight: 400;
+  --type-body-size: 1.0625rem;
+  --type-body-line-height: 1.55;
+  --type-body-tracking: 0em;
+  --type-small-font: var(--font-text);
+  --type-small-weight: 400;
+  --type-small-size: 0.875rem;
+  --type-small-line-height: 1.45;
+  --type-small-tracking: 0em;
+  --type-label-font: var(--font-mono);
+  --type-label-weight: 500;
+  --type-label-size: 0.75rem;
+  --type-label-line-height: 1.35;
+  --type-label-tracking: 0.04em;
+
+  --space-hair: 4px;
+  --space-sip: 8px;
+  --space-splash: 12px;
+  --space-pour: 16px;
+  --space-glass: 24px;
+  --space-can: 32px;
+  --space-crate: 48px;
+  --space-shelf: 64px;
+  --space-tide: 96px;
+  --space-sound: 128px;
+}

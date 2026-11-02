@@ -1,0 +1,53 @@
+/* Tidewell theme for Tailwind CSS v4. Generated from the brand config. */
+@theme {
+  --color-fathom: #08262A;
+  --color-salt: #F7F3E8;
+  --color-peel: #FF5C35;
+  --color-tidewater: #0A4A48;
+  --color-seaglass: #B4DCCB;
+  --color-quinine: #E8F27A;
+
+  --font-display: "Young Serif", Georgia, "Times New Roman", serif;
+  --font-text: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "DM Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --text-display: 8rem;
+  --text-display--line-height: 0.98;
+  --text-display--letter-spacing: -0.02em;
+  --text-display--font-weight: 400;
+  --text-h1: 4.5rem;
+  --text-h1--line-height: 1.04;
+  --text-h1--letter-spacing: -0.015em;
+  --text-h1--font-weight: 400;
+  --text-h2: 2.375rem;
+  --text-h2--line-height: 1.14;
+  --text-h2--letter-spacing: -0.01em;
+  --text-h2--font-weight: 400;
+  --text-h3: 1.3125rem;
+  --text-h3--line-height: 1.32;
+  --text-h3--letter-spacing: -0.005em;
+  --text-h3--font-weight: 600;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.55;
+  --text-body--letter-spacing: 0em;
+  --text-body--font-weight: 400;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.45;
+  --text-small--letter-spacing: 0em;
+  --text-small--font-weight: 400;
+  --text-label: 0.75rem;
+  --text-label--line-height: 1.35;
+  --text-label--letter-spacing: 0.04em;
+  --text-label--font-weight: 500;
+
+  --spacing-hair: 4px;
+  --spacing-sip: 8px;
+  --spacing-splash: 12px;
+  --spacing-pour: 16px;
+  --spacing-glass: 24px;
+  --spacing-can: 32px;
+  --spacing-crate: 48px;
+  --spacing-shelf: 64px;
+  --spacing-tide: 96px;
+  --spacing-sound: 128px;
+}

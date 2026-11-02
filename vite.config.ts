@@ -8,6 +8,7 @@ import {
   layerwiseEmailWorker,
   layerwiseStorageWorker
 } from '@layerwise/vite';
+import { brandSync } from './scripts/vite-plugin-brand-sync';
 
 export default defineConfig({
   server: {
@@ -30,6 +31,7 @@ export default defineConfig({
   },
   plugins: [
     layerwise(),
+    brandSync(),
     tailwindcss(),
     cloudflare({
       viteEnvironment: { name: 'ssr' },

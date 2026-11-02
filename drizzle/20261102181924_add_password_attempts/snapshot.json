@@ -1,0 +1,54 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "id": "fcdb01c3-9824-42c0-9a95-37ca88f2a2cb",
+  "prevIds": [
+    "d34101df-9832-4f54-95c3-53b0b4dfbc57"
+  ],
+  "ddl": [
+    {
+      "name": "password_attempts",
+      "entityType": "tables"
+    },
+    {
+      "type": "text",
+      "notNull": false,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "client_key",
+      "entityType": "columns",
+      "table": "password_attempts"
+    },
+    {
+      "type": "integer",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "attempts",
+      "entityType": "columns",
+      "table": "password_attempts"
+    },
+    {
+      "type": "integer",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "window_started_at",
+      "entityType": "columns",
+      "table": "password_attempts"
+    },
+    {
+      "columns": [
+        "client_key"
+      ],
+      "nameExplicit": false,
+      "name": "password_attempts_pk",
+      "table": "password_attempts",
+      "entityType": "pks"
+    }
+  ],
+  "renames": []
+}

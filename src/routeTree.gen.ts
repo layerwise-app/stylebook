@@ -8,233 +8,341 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root';
-import { Route as IndexRouteImport } from './routes/index';
-import { Route as DashboardRouteImport } from './routes/dashboard';
-import { Route as ForgotPasswordRouteImport } from './routes/forgot-password';
-import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt';
-import { Route as SignInRouteImport } from './routes/sign-in';
-import { Route as SignUpRouteImport } from './routes/sign-up';
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml';
-import { Route as SignInOtpRouteImport } from './routes/sign-in_.otp';
-import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$';
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as GuideRouteImport } from './routes/_guide'
+import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
+import { Route as SheetRouteImport } from './routes/sheet'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as GuideIndexRouteImport } from './routes/_guide/index'
+import { Route as GuideApplicationsRouteImport } from './routes/_guide/applications'
+import { Route as GuideChangelogRouteImport } from './routes/_guide/changelog'
+import { Route as GuideColorRouteImport } from './routes/_guide/color'
+import { Route as GuideDownloadsRouteImport } from './routes/_guide/downloads'
+import { Route as GuideImageryRouteImport } from './routes/_guide/imagery'
+import { Route as GuideLogoRouteImport } from './routes/_guide/logo'
+import { Route as GuideTokensRouteImport } from './routes/_guide/tokens'
+import { Route as GuideTypographyRouteImport } from './routes/_guide/typography'
+import { Route as GuideVoiceRouteImport } from './routes/_guide/voice'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport
-} as any);
-const DashboardRoute = DashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => rootRouteImport
-} as any);
-const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
-  id: '/forgot-password',
-  path: '/forgot-password',
-  getParentRoute: () => rootRouteImport
-} as any);
+const GuideRoute = GuideRouteImport.update({
+  id: '/_guide',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
   id: '/robots.txt',
   path: '/robots.txt',
-  getParentRoute: () => rootRouteImport
-} as any);
-const SignInRoute = SignInRouteImport.update({
-  id: '/sign-in',
-  path: '/sign-in',
-  getParentRoute: () => rootRouteImport
-} as any);
-const SignUpRoute = SignUpRouteImport.update({
-  id: '/sign-up',
-  path: '/sign-up',
-  getParentRoute: () => rootRouteImport
-} as any);
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SheetRoute = SheetRouteImport.update({
+  id: '/sheet',
+  path: '/sheet',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport
-} as any);
-const SignInOtpRoute = SignInOtpRouteImport.update({
-  id: '/sign-in_/otp',
-  path: '/sign-in/otp',
-  getParentRoute: () => rootRouteImport
-} as any);
-const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
-  id: '/api/auth/$',
-  path: '/api/auth/$',
-  getParentRoute: () => rootRouteImport
-} as any);
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuideIndexRoute = GuideIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => GuideRoute,
+} as any)
+const GuideApplicationsRoute = GuideApplicationsRouteImport.update({
+  id: '/applications',
+  path: '/applications',
+  getParentRoute: () => GuideRoute,
+} as any)
+const GuideChangelogRoute = GuideChangelogRouteImport.update({
+  id: '/changelog',
+  path: '/changelog',
+  getParentRoute: () => GuideRoute,
+} as any)
+const GuideColorRoute = GuideColorRouteImport.update({
+  id: '/color',
+  path: '/color',
+  getParentRoute: () => GuideRoute,
+} as any)
+const GuideDownloadsRoute = GuideDownloadsRouteImport.update({
+  id: '/downloads',
+  path: '/downloads',
+  getParentRoute: () => GuideRoute,
+} as any)
+const GuideImageryRoute = GuideImageryRouteImport.update({
+  id: '/imagery',
+  path: '/imagery',
+  getParentRoute: () => GuideRoute,
+} as any)
+const GuideLogoRoute = GuideLogoRouteImport.update({
+  id: '/logo',
+  path: '/logo',
+  getParentRoute: () => GuideRoute,
+} as any)
+const GuideTokensRoute = GuideTokensRouteImport.update({
+  id: '/tokens',
+  path: '/tokens',
+  getParentRoute: () => GuideRoute,
+} as any)
+const GuideTypographyRoute = GuideTypographyRouteImport.update({
+  id: '/typography',
+  path: '/typography',
+  getParentRoute: () => GuideRoute,
+} as any)
+const GuideVoiceRoute = GuideVoiceRouteImport.update({
+  id: '/voice',
+  path: '/voice',
+  getParentRoute: () => GuideRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute;
-  '/dashboard': typeof DashboardRoute;
-  '/forgot-password': typeof ForgotPasswordRoute;
-  '/robots.txt': typeof RobotsDottxtRoute;
-  '/sign-in': typeof SignInRoute;
-  '/sign-up': typeof SignUpRoute;
-  '/sitemap.xml': typeof SitemapDotxmlRoute;
-  '/sign-in/otp': typeof SignInOtpRoute;
-  '/api/auth/$': typeof ApiAuthSplatRoute;
+  '/': typeof GuideIndexRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sheet': typeof SheetRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/applications': typeof GuideApplicationsRoute
+  '/changelog': typeof GuideChangelogRoute
+  '/color': typeof GuideColorRoute
+  '/downloads': typeof GuideDownloadsRoute
+  '/imagery': typeof GuideImageryRoute
+  '/logo': typeof GuideLogoRoute
+  '/tokens': typeof GuideTokensRoute
+  '/typography': typeof GuideTypographyRoute
+  '/voice': typeof GuideVoiceRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute;
-  '/dashboard': typeof DashboardRoute;
-  '/forgot-password': typeof ForgotPasswordRoute;
-  '/robots.txt': typeof RobotsDottxtRoute;
-  '/sign-in': typeof SignInRoute;
-  '/sign-up': typeof SignUpRoute;
-  '/sitemap.xml': typeof SitemapDotxmlRoute;
-  '/sign-in/otp': typeof SignInOtpRoute;
-  '/api/auth/$': typeof ApiAuthSplatRoute;
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sheet': typeof SheetRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/applications': typeof GuideApplicationsRoute
+  '/changelog': typeof GuideChangelogRoute
+  '/color': typeof GuideColorRoute
+  '/downloads': typeof GuideDownloadsRoute
+  '/imagery': typeof GuideImageryRoute
+  '/logo': typeof GuideLogoRoute
+  '/tokens': typeof GuideTokensRoute
+  '/typography': typeof GuideTypographyRoute
+  '/voice': typeof GuideVoiceRoute
+  '/': typeof GuideIndexRoute
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport;
-  '/': typeof IndexRoute;
-  '/dashboard': typeof DashboardRoute;
-  '/forgot-password': typeof ForgotPasswordRoute;
-  '/robots.txt': typeof RobotsDottxtRoute;
-  '/sign-in': typeof SignInRoute;
-  '/sign-up': typeof SignUpRoute;
-  '/sitemap.xml': typeof SitemapDotxmlRoute;
-  '/sign-in_/otp': typeof SignInOtpRoute;
-  '/api/auth/$': typeof ApiAuthSplatRoute;
+  __root__: typeof rootRouteImport
+  '/_guide': typeof GuideRouteWithChildren
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sheet': typeof SheetRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/_guide/applications': typeof GuideApplicationsRoute
+  '/_guide/changelog': typeof GuideChangelogRoute
+  '/_guide/color': typeof GuideColorRoute
+  '/_guide/downloads': typeof GuideDownloadsRoute
+  '/_guide/imagery': typeof GuideImageryRoute
+  '/_guide/logo': typeof GuideLogoRoute
+  '/_guide/tokens': typeof GuideTokensRoute
+  '/_guide/typography': typeof GuideTypographyRoute
+  '/_guide/voice': typeof GuideVoiceRoute
+  '/_guide/': typeof GuideIndexRoute
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
+  fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/dashboard'
-    | '/forgot-password'
     | '/robots.txt'
-    | '/sign-in'
-    | '/sign-up'
+    | '/sheet'
     | '/sitemap.xml'
-    | '/sign-in/otp'
-    | '/api/auth/$';
-  fileRoutesByTo: FileRoutesByTo;
+    | '/applications'
+    | '/changelog'
+    | '/color'
+    | '/downloads'
+    | '/imagery'
+    | '/logo'
+    | '/tokens'
+    | '/typography'
+    | '/voice'
+  fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
-    | '/dashboard'
-    | '/forgot-password'
     | '/robots.txt'
-    | '/sign-in'
-    | '/sign-up'
+    | '/sheet'
     | '/sitemap.xml'
-    | '/sign-in/otp'
-    | '/api/auth/$';
+    | '/applications'
+    | '/changelog'
+    | '/color'
+    | '/downloads'
+    | '/imagery'
+    | '/logo'
+    | '/tokens'
+    | '/typography'
+    | '/voice'
+    | '/'
   id:
     | '__root__'
-    | '/'
-    | '/dashboard'
-    | '/forgot-password'
+    | '/_guide'
     | '/robots.txt'
-    | '/sign-in'
-    | '/sign-up'
+    | '/sheet'
     | '/sitemap.xml'
-    | '/sign-in_/otp'
-    | '/api/auth/$';
-  fileRoutesById: FileRoutesById;
+    | '/_guide/applications'
+    | '/_guide/changelog'
+    | '/_guide/color'
+    | '/_guide/downloads'
+    | '/_guide/imagery'
+    | '/_guide/logo'
+    | '/_guide/tokens'
+    | '/_guide/typography'
+    | '/_guide/voice'
+    | '/_guide/'
+  fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute;
-  DashboardRoute: typeof DashboardRoute;
-  ForgotPasswordRoute: typeof ForgotPasswordRoute;
-  RobotsDottxtRoute: typeof RobotsDottxtRoute;
-  SignInRoute: typeof SignInRoute;
-  SignUpRoute: typeof SignUpRoute;
-  SitemapDotxmlRoute: typeof SitemapDotxmlRoute;
-  SignInOtpRoute: typeof SignInOtpRoute;
-  ApiAuthSplatRoute: typeof ApiAuthSplatRoute;
+  GuideRoute: typeof GuideRouteWithChildren
+  RobotsDottxtRoute: typeof RobotsDottxtRoute
+  SheetRoute: typeof SheetRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/';
-      path: '/';
-      fullPath: '/';
-      preLoaderRoute: typeof IndexRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    '/dashboard': {
-      id: '/dashboard';
-      path: '/dashboard';
-      fullPath: '/dashboard';
-      preLoaderRoute: typeof DashboardRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    '/forgot-password': {
-      id: '/forgot-password';
-      path: '/forgot-password';
-      fullPath: '/forgot-password';
-      preLoaderRoute: typeof ForgotPasswordRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
+    '/_guide': {
+      id: '/_guide'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof GuideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/robots.txt': {
-      id: '/robots.txt';
-      path: '/robots.txt';
-      fullPath: '/robots.txt';
-      preLoaderRoute: typeof RobotsDottxtRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    '/sign-in': {
-      id: '/sign-in';
-      path: '/sign-in';
-      fullPath: '/sign-in';
-      preLoaderRoute: typeof SignInRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    '/sign-up': {
-      id: '/sign-up';
-      path: '/sign-up';
-      fullPath: '/sign-up';
-      preLoaderRoute: typeof SignUpRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
+      id: '/robots.txt'
+      path: '/robots.txt'
+      fullPath: '/robots.txt'
+      preLoaderRoute: typeof RobotsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sheet': {
+      id: '/sheet'
+      path: '/sheet'
+      fullPath: '/sheet'
+      preLoaderRoute: typeof SheetRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
-      id: '/sitemap.xml';
-      path: '/sitemap.xml';
-      fullPath: '/sitemap.xml';
-      preLoaderRoute: typeof SitemapDotxmlRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    '/sign-in_/otp': {
-      id: '/sign-in_/otp';
-      path: '/sign-in/otp';
-      fullPath: '/sign-in/otp';
-      preLoaderRoute: typeof SignInOtpRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    '/api/auth/$': {
-      id: '/api/auth/$';
-      path: '/api/auth/$';
-      fullPath: '/api/auth/$';
-      preLoaderRoute: typeof ApiAuthSplatRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_guide/': {
+      id: '/_guide/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof GuideIndexRouteImport
+      parentRoute: typeof GuideRoute
+    }
+    '/_guide/applications': {
+      id: '/_guide/applications'
+      path: '/applications'
+      fullPath: '/applications'
+      preLoaderRoute: typeof GuideApplicationsRouteImport
+      parentRoute: typeof GuideRoute
+    }
+    '/_guide/changelog': {
+      id: '/_guide/changelog'
+      path: '/changelog'
+      fullPath: '/changelog'
+      preLoaderRoute: typeof GuideChangelogRouteImport
+      parentRoute: typeof GuideRoute
+    }
+    '/_guide/color': {
+      id: '/_guide/color'
+      path: '/color'
+      fullPath: '/color'
+      preLoaderRoute: typeof GuideColorRouteImport
+      parentRoute: typeof GuideRoute
+    }
+    '/_guide/downloads': {
+      id: '/_guide/downloads'
+      path: '/downloads'
+      fullPath: '/downloads'
+      preLoaderRoute: typeof GuideDownloadsRouteImport
+      parentRoute: typeof GuideRoute
+    }
+    '/_guide/imagery': {
+      id: '/_guide/imagery'
+      path: '/imagery'
+      fullPath: '/imagery'
+      preLoaderRoute: typeof GuideImageryRouteImport
+      parentRoute: typeof GuideRoute
+    }
+    '/_guide/logo': {
+      id: '/_guide/logo'
+      path: '/logo'
+      fullPath: '/logo'
+      preLoaderRoute: typeof GuideLogoRouteImport
+      parentRoute: typeof GuideRoute
+    }
+    '/_guide/tokens': {
+      id: '/_guide/tokens'
+      path: '/tokens'
+      fullPath: '/tokens'
+      preLoaderRoute: typeof GuideTokensRouteImport
+      parentRoute: typeof GuideRoute
+    }
+    '/_guide/typography': {
+      id: '/_guide/typography'
+      path: '/typography'
+      fullPath: '/typography'
+      preLoaderRoute: typeof GuideTypographyRouteImport
+      parentRoute: typeof GuideRoute
+    }
+    '/_guide/voice': {
+      id: '/_guide/voice'
+      path: '/voice'
+      fullPath: '/voice'
+      preLoaderRoute: typeof GuideVoiceRouteImport
+      parentRoute: typeof GuideRoute
+    }
   }
 }
 
+interface GuideRouteChildren {
+  GuideApplicationsRoute: typeof GuideApplicationsRoute
+  GuideChangelogRoute: typeof GuideChangelogRoute
+  GuideColorRoute: typeof GuideColorRoute
+  GuideDownloadsRoute: typeof GuideDownloadsRoute
+  GuideImageryRoute: typeof GuideImageryRoute
+  GuideLogoRoute: typeof GuideLogoRoute
+  GuideTokensRoute: typeof GuideTokensRoute
+  GuideTypographyRoute: typeof GuideTypographyRoute
+  GuideVoiceRoute: typeof GuideVoiceRoute
+  GuideIndexRoute: typeof GuideIndexRoute
+}
+
+const GuideRouteChildren: GuideRouteChildren = {
+  GuideApplicationsRoute: GuideApplicationsRoute,
+  GuideChangelogRoute: GuideChangelogRoute,
+  GuideColorRoute: GuideColorRoute,
+  GuideDownloadsRoute: GuideDownloadsRoute,
+  GuideImageryRoute: GuideImageryRoute,
+  GuideLogoRoute: GuideLogoRoute,
+  GuideTokensRoute: GuideTokensRoute,
+  GuideTypographyRoute: GuideTypographyRoute,
+  GuideVoiceRoute: GuideVoiceRoute,
+  GuideIndexRoute: GuideIndexRoute,
+}
+
+const GuideRouteWithChildren = GuideRoute._addFileChildren(GuideRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  DashboardRoute: DashboardRoute,
-  ForgotPasswordRoute: ForgotPasswordRoute,
+  GuideRoute: GuideRouteWithChildren,
   RobotsDottxtRoute: RobotsDottxtRoute,
-  SignInRoute: SignInRoute,
-  SignUpRoute: SignUpRoute,
+  SheetRoute: SheetRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
-  SignInOtpRoute: SignInOtpRoute,
-  ApiAuthSplatRoute: ApiAuthSplatRoute
-};
+}
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()
 
-import type { getRouter } from './router.tsx';
-import type { createStart } from '@tanstack/react-start';
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
 declare module '@tanstack/react-start' {
   interface Register {
-    ssr: true;
-    router: Awaited<ReturnType<typeof getRouter>>;
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
   }
 }

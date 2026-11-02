@@ -1,53 +1,25 @@
-import {
-  ErrorComponent,
-  Link,
-  rootRouteId,
-  useMatch,
-  useRouter,
-} from '@tanstack/react-router'
-import type { ErrorComponentProps } from '@tanstack/react-router'
+import { useRouter } from '@tanstack/react-router';
+import type { ErrorComponentProps } from '@tanstack/react-router';
 
 export function DefaultCatchBoundary({ error }: ErrorComponentProps) {
-  const router = useRouter()
-  const isRoot = useMatch({
-    strict: false,
-    select: (state) => state.id === rootRouteId,
-  })
-
-  console.error(error)
-
+  const router = useRouter();
+  console.error(error);
   return (
-    <div className="min-w-0 flex-1 p-4 flex flex-col items-center justify-center gap-6">
-      <ErrorComponent error={error} />
-      <div className="flex gap-2 items-center flex-wrap">
+    <main style={{ padding: '2rem', fontFamily: 'system-ui, sans-serif' }}>
+      <h1>Something went wrong</h1>
+      <p>This page couldn’t load. If the site just locked, reloading will ask for the password.</p>
+      <p>
         <button
+          type='button'
+          style={{ textDecoration: 'underline', cursor: 'pointer' }}
           onClick={() => {
-            router.invalidate()
+            void router.invalidate();
+            window.location.reload();
           }}
-          className={`px-2 py-1 bg-gray-600 dark:bg-gray-700 rounded-sm text-white uppercase font-extrabold`}
         >
-          Try Again
+          Reload
         </button>
-        {isRoot ? (
-          <Link
-            to="/"
-            className={`px-2 py-1 bg-gray-600 dark:bg-gray-700 rounded-sm text-white uppercase font-extrabold`}
-          >
-            Home
-          </Link>
-        ) : (
-          <Link
-            to="/"
-            className={`px-2 py-1 bg-gray-600 dark:bg-gray-700 rounded-sm text-white uppercase font-extrabold`}
-            onClick={(e) => {
-              e.preventDefault()
-              window.history.back()
-            }}
-          >
-            Go Back
-          </Link>
-        )}
-      </div>
-    </div>
-  )
+      </p>
+    </main>
+  );
 }

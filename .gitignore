@@ -18,3 +18,7 @@ dist
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Stylebook
+.dev.vars
+.tmp

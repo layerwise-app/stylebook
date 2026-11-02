@@ -1,13 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { sitemapPaths, siteUrl } from '~/lib/site';
+import { isSiteProtected } from '~/server/site-access.server';
 
-// Lists `sitemapPaths`. Pages built from data, like one per product, can be
-// added here by querying the database for their paths.
 export const Route = createFileRoute('/sitemap.xml')({
   server: {
     handlers: {
       GET: () => {
-        const urls = sitemapPaths
+        const paths = isSiteProtected() ? [] : sitemapPaths;
+        const urls = paths
           .map((path) => `  <url><loc>${escapeXml(siteUrl(path))}</loc></url>`)
           .join('\n');
         return new Response(

@@ -7,11 +7,9 @@ import {
 } from '@tanstack/react-router';
 import type { QueryClient } from '@tanstack/react-query';
 import type * as React from 'react';
-import { ThemeProvider } from 'next-themes';
+import { getGuide } from '~/brand/guide.functions';
 import { DefaultCatchBoundary } from '~/components/DefaultCatchBoundary';
 import { NotFound } from '~/components/NotFound';
-import { Toaster } from '~/components/ui/sonner';
-import { TooltipProvider } from '~/components/ui/tooltip';
 import { site } from '~/lib/site';
 import { seo } from '~/utils/seo';
 import '~/styles/app.css';
@@ -19,23 +17,42 @@ import '~/styles/app.css';
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
 }>()({
-  // Site-wide defaults; each page's `seo()` overrides tags with the same name.
-  head: () => ({
-    meta: [
-      { charSet: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      ...(site.googleSiteVerification
+  // All brand content, and the theme, comes from this one access-checked call.
+  // It's fetched once and kept for the visit.
+  loader: () => getGuide(),
+  staleTime: Infinity,
+  head: ({ loaderData: guide }) => {
+    const base = seo({
+      guide,
+      title: guide ? `${guide.name} brand guidelines` : 'Brand guidelines',
+      description: guide?.description
+    });
+    return {
+      meta: [
+        { charSet: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        ...(guide ? [{ name: 'theme-color', content: guide.themeColor }] : []),
+        ...(site.googleSiteVerification
+          ? [{ name: 'google-site-verification', content: site.googleSiteVerification }]
+          : []),
+        ...base.meta
+      ],
+      links: guide
         ? [
-            {
-              name: 'google-site-verification',
-              content: site.googleSiteVerification
-            }
+            { rel: 'icon', type: 'image/png', sizes: '32x32', href: guide.favicon },
+            { rel: 'apple-touch-icon', href: guide.appleTouchIcon },
+            ...guide.fontPreloads.map((href) => ({
+              rel: 'preload',
+              as: 'font',
+              type: 'font/woff2',
+              href,
+              crossOrigin: 'anonymous' as const
+            }))
           ]
-        : []),
-      ...seo({ title: site.name, description: site.description }).meta
-    ],
-    links: [{ rel: 'icon', href: '/favicon.ico' }]
-  }),
+        : [{ rel: 'icon', href: '/favicon.ico' }],
+      styles: guide ? [{ children: guide.themeCss }] : []
+    };
+  },
   errorComponent: (props) => (
     <RootDocument>
       <DefaultCatchBoundary {...props} />
@@ -55,22 +72,12 @@ function RootComponent() {
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang='en' suppressHydrationWarning>
+    <html lang='en'>
       <head>
         <HeadContent />
       </head>
       <body>
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='system'
-          enableSystem
-          disableTransitionOnChange
-        >
-          <TooltipProvider>
-            {children}
-            <Toaster />
-          </TooltipProvider>
-        </ThemeProvider>
+        {children}
         <Scripts />
       </body>
     </html>

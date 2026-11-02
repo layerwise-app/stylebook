@@ -1,44 +1,39 @@
 import { createIsomorphicFn } from '@tanstack/react-start';
 import { getRequestUrl } from '@tanstack/react-start/server';
 
-type Site = {
-  name: string;
-  description: string;
+// Site settings that aren't brand content. This file reaches the browser, so the
+// brand's name and share image live in the config and arrive through getGuide.
+export const site = {
   /**
-   * The address search engines should index, like `https://bloombakery.com`.
-   * Empty uses the address each visitor opened. Set it when a custom domain is
+   * The address search engines should index, like `https://example.com`. Empty
+   * uses the address each visitor opened. Set it when a custom domain is
    * connected, so the layerwise.site address isn't indexed as a copy.
    */
-  url: string;
-  /**
-   * Share image for link previews on Instagram, iMessage, WhatsApp, and
-   * search: a 1200×630 PNG or JPG in `public/`, like `/og-image.jpg`. Pages
-   * can set their own. Empty shows previews without an image.
-   */
-  image: string;
-  imageAlt: string;
-  /** The `content` of Google Search Console's HTML tag, if it's used. */
-  googleSiteVerification: string;
-};
-
-/** What search engines and link previews read about this site. */
-export const site: Site = {
-  name: 'My App',
-  description: 'Built with Layerwise',
   url: '',
-  image: '',
-  imageAlt: '',
+  /** The `content` of Google Search Console's HTML tag, if it's used. */
   googleSiteVerification: ''
 };
 
-/** Public pages in `/sitemap.xml`. Add every page search engines should find. */
-export const sitemapPaths: string[] = ['/'];
+/** Public pages in `/sitemap.xml`. Protected sites serve an empty sitemap. */
+export const sitemapPaths: string[] = [
+  '/',
+  '/logo',
+  '/color',
+  '/typography',
+  '/imagery',
+  '/voice',
+  '/applications',
+  '/tokens',
+  '/downloads',
+  '/changelog',
+  '/sheet'
+];
 
 const requestOrigin = createIsomorphicFn()
   .server(() => getRequestUrl().origin)
   .client(() => window.location.origin);
 
-/** Absolute URL for a path or a `public/` file on this site. */
+/** Absolute URL for a path on this site. */
 export function siteUrl(path = '/'): string {
   return new URL(path, site.url || requestOrigin()).toString();
 }

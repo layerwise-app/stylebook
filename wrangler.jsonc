@@ -3,7 +3,7 @@
   "name": "layerwise-app",
   "compatibility_date": "2026-04-27",
   "compatibility_flags": ["nodejs_compat"],
-  "main": "@tanstack/react-start/server-entry",
+  "main": "./src/server.ts",
   // The `database_id` here is only used for local development (a local SQLite
   // file). In production the real per-project D1 database is bound as `DB`
   // automatically when the app is published.
@@ -29,12 +29,5 @@
       "service": "layerwise-project-email",
       "entrypoint": "ProjectEmail"
     }
-  ],
-  "vars": {
-    "BETTER_AUTH_URL": "",
-    "BETTER_AUTH_SECRET": ""
-  },
-  "secrets": {
-    "required": ["AUTH_EMAIL_URL"]
-  }
+  ]
 }
