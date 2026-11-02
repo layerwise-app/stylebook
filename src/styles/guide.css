@@ -1390,7 +1390,7 @@ dialog.sb-search[open] {
 .sb-sheet__version {
   text-align: right;
   flex: none;
-  max-width: 34%;
+  white-space: nowrap;
 }
 .sb-sheet__tagline {
   padding: calc(var(--s) * 6) calc(var(--s) * 7);

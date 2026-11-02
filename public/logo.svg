@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img">
+  <title>Stylebook</title>
+  <!-- An open book: two pages meet at a spine, one S crosses both.
+       Stroke edges sit on multiples of 16, which is one pixel at 32 px. -->
+  <rect width="256" height="512" fill="#15130F"/>
+  <rect x="256" width="256" height="512" fill="#E5391C"/>
+  <path d="M416 120H200A64 64 0 0 0 200 248H312A64 64 0 0 1 312 376H96" fill="none" stroke="#F4F1EA" stroke-width="80"/>
+</svg>

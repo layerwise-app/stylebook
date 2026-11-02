@@ -87,6 +87,7 @@ beside them:
 
 ```bash
 pnpm build-brand              # regenerate brand-files/generated/
+pnpm build-icons              # re-render the template's favicons from public/logo.svg
 pnpm test                     # color, contrast, token, gate, and sync tests
 pnpm lint
 pnpm check-types

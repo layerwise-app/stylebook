@@ -23,7 +23,7 @@ async function parseFont(path: string) {
       sfnt.buffer.slice(sfnt.byteOffset, sfnt.byteOffset + sfnt.byteLength)
     );
   } catch (error) {
-    throw new Error(`${path} can't be read as a font: ${(error as Error).message}`);
+    throw new Error(`${path} can't be read as a font: ${(error as Error).message}`, { cause: error });
   }
 }
 
