@@ -1510,7 +1510,7 @@ dialog.sb-search[open] {
     display: none;
   }
   .sb-sheet {
-    width: 190mm;
+    width: 100%;
     max-width: none;
     height: 257mm;
     min-height: 0;

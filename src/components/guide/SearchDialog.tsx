@@ -21,6 +21,23 @@ function Item({ item, onPick }: { item: SearchItem; onPick: (item: SearchItem) =
   );
 }
 
+/**
+ * Every typed word must appear somewhere, and titles outrank everything else.
+ * cmdk's default fuzzy match is too loose for short lists with long keywords: its
+ * letters-in-order rule matched "clear space" against color descriptions.
+ */
+export function searchScore(value: string, query: string, keywords: string[] = []) {
+  const words = query.toLowerCase().trim().split(/\s+/).filter(Boolean);
+  if (!words.length) return 1;
+  const title = value.toLowerCase();
+  const everything = `${title} ${keywords.join(' ').toLowerCase()}`;
+  if (!words.every((word) => everything.includes(word))) return 0;
+  const phrase = words.join(' ');
+  if (title.startsWith(phrase)) return 1;
+  if (title.includes(phrase)) return 0.8;
+  return words.every((word) => title.includes(word)) ? 0.6 : 0.3;
+}
+
 export function useSearchShortcut(open: () => void) {
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -64,7 +81,11 @@ export function SearchDialog({
         if (event.target === dialogRef.current) close();
       }}
     >
-      <Command className='sb-search__command' label='Search sections and colors'>
+      <Command
+        className='sb-search__command'
+        label='Search sections and colors'
+        filter={searchScore}
+      >
         <Command.Input
           ref={inputRef}
           className='sb-search__input'

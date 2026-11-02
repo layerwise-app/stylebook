@@ -13,8 +13,12 @@ const MANIFEST = 'brand-files/generated/manifest.json';
 const SYNC_PATH = '/__stylebook/sync';
 const CONCURRENCY = 6;
 
+// Vite reloads this module on every restart, but a sync already running would still
+// hold the old token, so the token lives as long as the dev process.
+const processState = globalThis as { __stylebookSyncToken?: string };
+
 export function brandSync(): Plugin {
-  const token = randomBytes(24).toString('hex');
+  const token = (processState.__stylebookSyncToken ??= randomBytes(24).toString('hex'));
   return {
     name: 'stylebook:brand-sync',
     apply: 'serve',
@@ -55,6 +59,15 @@ export function brandSync(): Plugin {
         clearTimeout(timer);
         timer = setTimeout(() => void run(), 400);
       });
+
+      // The Cloudflare plugin restarts when .dev.vars changes, but not when it's
+      // created or deleted, which is how the README turns the password on and off.
+      const devVars = join(root, '.dev.vars');
+      const restartOnDevVars = (path: string) => {
+        if (path === devVars) void server.restart();
+      };
+      server.watcher.on('add', restartOnDevVars);
+      server.watcher.on('unlink', restartOnDevVars);
     }
   };
 }
