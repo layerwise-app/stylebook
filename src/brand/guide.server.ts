@@ -359,6 +359,9 @@ function buildGuide(): Omit<GuideView, 'protected' | 'syncErrors'> {
     shareImage: fileUrl(SHARE_IMAGE_KEY),
     coverMark: fileUrl(logoSvgKey(config.logos.faviconVariant, 'brand')),
     themeColor: theme.brand.background,
+    darkPaper:
+      contrastRatio(theme.paper.background, '#FFFFFF') >
+      contrastRatio(theme.paper.background, '#000000'),
     primaryLogo: {
       light: fileUrl(logoSvgKey(primary.id, 'light')),
       dark: fileUrl(logoSvgKey(primary.id, 'dark')),

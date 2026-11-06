@@ -1,12 +1,55 @@
+<a href="https://layerwise.app"><picture><source media="(prefers-color-scheme: dark)" srcset="https://layerwise.app/powered-by-dark.png"><img src="https://layerwise.app/powered-by.png" alt="Powered by Layerwise" width="174" height="28"></picture></a>
+
 # Stylebook
 
-A brand guidelines site that a designer delivers to a client. One config file
-runs everything: change the config and the logo files, and the whole site,
-including its own design, becomes that brand's guidelines.
+Stylebook is a brand guidelines site that a designer or studio hands to a client.
+It's for anyone who needs to give a team one place to find a brand's logo, colors,
+fonts, and rules. Visitors can browse pages for the logo, color, typography, imagery,
+voice, applications, tokens, downloads, and changelog. They can search the whole
+guide, copy color values and design tokens, try the brand fonts on their own text,
+download every file in one zip, and print a one-page brand sheet. The demo shows
+Tidewell, a made-up tonic brand: see it live at https://stylebook.layerwise.site/.
 
-It has no accounts, admin area, or CMS. It's public by default and can be
-protected with one shared password. To change anything, ask the Layerwise agent,
-or follow the steps below.
+Stylebook was built with [Layerwise](https://layerwise.app), and you can open it in
+Layerwise to make your own version.
+
+One config file runs everything. Change the config and the logo files, and the whole
+site, including its own design, becomes that brand's guidelines. It has no accounts,
+admin area, or CMS. It's public by default and can be protected with one shared
+password. To change anything, ask the Layerwise agent, or follow the steps below.
+
+## Where things live
+
+- **Brand content and copy:** `src/brand/brand.config.server.ts`. The name, tagline,
+  description, contact email, overview, logo rules, colors, fonts, type scale,
+  spacing, voice, imagery, applications, and changelog are all here. TypeScript
+  checks it against `src/brand/types.ts`.
+- **Colors:** the `colors` list in the config. The site's own colors come from the
+  colors with the `ink`, `paper`, and `brand` roles.
+- **Page intros and search descriptions:** the `pages` object in
+  `src/brand/guide.server.ts`, written around the brand name.
+- **Page list and sections:** `src/lib/pages.ts`.
+- **Site settings:** `src/lib/site.ts`, for the address search engines should index,
+  Google Search Console verification, and the pages listed in `/sitemap.xml`.
+- **Logo and font files:** `brand-files/logos/` and `brand-files/fonts/`.
+- **Layout:** `src/styles/guide.css`.
+
+Any change to the config or to the files in `brand-files/` needs `pnpm build-brand`
+afterwards, which regenerates the files built from them. Until you run it, the local
+preview shows a notice that they're out of date the next time it starts.
+
+## Add an item
+
+- **A color:** add an entry to `colors` with an `id`, `name`, `hex`, `role` (`accent`
+  or `support` for extra colors), `usage`, and `proportion`. Add `cmyk` and
+  `pantone` only if you have real values.
+- **A changelog version:** add an entry at the top of `changelog`, newest first. The
+  first entry sets the version and date shown across the site.
+- **An imagery example:** add an entry to `imagery.examples` with a `scene` and four
+  palette ids in `colors`, background first.
+- **A voice principle or pair:** add to `voice.principles` or `voice.pairs`.
+
+Then run `pnpm build-brand`.
 
 ## Replace the brand
 
@@ -15,8 +58,7 @@ or follow the steps below.
    `#1A2B3C`.
 2. **Fonts.** Delete the old files in `brand-files/fonts/` and add yours, one
    static `.woff2` per weight, plus any license text.
-3. **Config.** Rewrite `src/brand/brand.config.server.ts`. TypeScript checks it
-   against `src/brand/types.ts`. Things to set with care:
+3. **Config.** Rewrite `src/brand/brand.config.server.ts`. Things to set with care:
    - `colors`: exactly one each with role `ink`, `paper`, and `brand`. Add `cmyk`
      and `pantone` only if you have real values.
    - `logos.colorways`: the hex replacements that turn your source logo into its
@@ -88,7 +130,7 @@ beside them:
 ```bash
 pnpm build-brand              # regenerate brand-files/generated/
 pnpm build-icons              # re-render the template's favicons from public/logo.svg
-pnpm test                     # color, contrast, token, gate, and sync tests
+pnpm test                     # color, contrast, token, gate, search, and sync tests
 pnpm lint
 pnpm check-types
 pnpm build                    # production build
@@ -97,7 +139,7 @@ pnpm db:generate --name <x>   # after changing src/db/schema.ts
 pnpm db:migrate               # apply migrations to the local database
 ```
 
-## Where things are
+## Where the code is
 
 - `src/brand/brand.config.server.ts`: the config
 - `scripts/build-brand/`: the file build and the art templates
@@ -107,5 +149,4 @@ pnpm db:migrate               # apply migrations to the local database
 - `src/routes/_guide/`: the pages; `src/routes/sheet.tsx`: the one-page sheet
 - `src/styles/guide.css`: the layout, which only reads `--sb-*` variables
 
-Built on [Layerwise](https://layerwise.app) with TanStack Start, Cloudflare Workers,
-D1, and Tailwind CSS.
+Built with TanStack Start, Cloudflare Workers, D1, and Tailwind CSS.

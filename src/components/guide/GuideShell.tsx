@@ -1,6 +1,7 @@
 import { Link, Outlet, useLocation } from '@tanstack/react-router';
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { PAGES, pageNumber, SHEET_PATH } from '~/lib/pages';
+import { PoweredBy } from './PoweredBy';
 import { SearchDialog, useSearchShortcut } from './SearchDialog';
 import { useGuide } from './use-guide';
 
@@ -228,7 +229,10 @@ export function GuideShell() {
             <span>
               {guide.name} brand guidelines, version {guide.version}
             </span>
-            <span>Updated {guide.updated}</span>
+            <span className='sb-footer__end'>
+              <span>Updated {guide.updated}</span>
+              <PoweredBy />
+            </span>
           </footer>
         </div>
       </div>

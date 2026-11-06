@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
+import { PoweredBy } from '~/components/guide/PoweredBy';
 import { useGuide } from '~/components/guide/use-guide';
 import { pageHead } from '~/utils/seo';
 
@@ -100,6 +101,9 @@ function Sheet() {
           <span>{guide.name} brand guidelines</span>
         </footer>
       </main>
+      <footer className='sb-sheet-desk__foot'>
+        <PoweredBy />
+      </footer>
     </div>
   );
 }

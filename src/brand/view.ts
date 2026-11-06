@@ -134,6 +134,8 @@ export type GuideView = {
   /** The small logo on the brand color, used large on the opening page. */
   coverMark: string;
   themeColor: string;
+  /** True when the paper color is dark, so artwork made for dark backgrounds reads on it. */
+  darkPaper: boolean;
   primaryLogo: { light: string; dark: string; brand: string; width: number; height: number; alt: string };
   pages: Record<string, PageCopy>;
   search: SearchItem[];

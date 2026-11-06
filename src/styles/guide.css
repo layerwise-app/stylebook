@@ -1322,9 +1322,27 @@ dialog.sb-search[open] {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
   gap: var(--sb-space-2) var(--sb-space-5);
   padding: var(--sb-space-5) var(--gutter);
   border-top: 1px solid var(--sb-rule);
+}
+.sb-footer__end {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sb-space-3) var(--sb-space-5);
+}
+
+/* Powered by Layerwise. Kept at its own size wherever it sits. */
+.sb-powered {
+  display: inline-flex;
+  flex: none;
+}
+.sb-powered img {
+  display: block;
+  width: 174px;
+  height: 28px;
 }
 
 .sb-alert {
@@ -1354,6 +1372,12 @@ dialog.sb-search[open] {
   gap: var(--sb-space-3);
   max-width: 190mm;
   margin: 0 auto var(--sb-space-5);
+}
+.sb-sheet-desk__foot {
+  display: flex;
+  justify-content: flex-end;
+  max-width: 190mm;
+  margin: var(--sb-space-5) auto 0;
 }
 .sb-sheet {
   --s: 1mm;
@@ -1484,6 +1508,10 @@ dialog.sb-search[open] {
     padding: var(--sb-space-3) var(--sb-space-4);
     margin-bottom: 0;
   }
+  .sb-sheet-desk__foot {
+    margin: 0;
+    padding: var(--sb-space-5) var(--sb-space-4);
+  }
   .sb-sheet {
     min-height: 0;
     font-size: 0.875rem;
@@ -1524,7 +1552,8 @@ dialog.sb-search[open] {
     padding: 0;
     background: none;
   }
-  .sb-sheet-tools {
+  .sb-sheet-tools,
+  .sb-sheet-desk__foot {
     display: none;
   }
   .sb-sheet {
